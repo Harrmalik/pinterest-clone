@@ -1,6 +1,10 @@
 %h1= @pin.title
 %p= @pin.description
+%p
+Submitted by
+= @pin.user.email
 
+%br
 = link_to "Back", root_path, class: "waves-effect waves-light btn"
 = link_to "Edit", edit_pin_path, class: "waves-effect waves-light btn"
 = link_to "Delete", pin_path, class: "waves-effect waves-light btn", method: :delete, data: {confirm: "Are you sure?"}

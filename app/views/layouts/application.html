@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Myapp</title>
+  <title>Pinterest Clone</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
@@ -14,11 +14,25 @@
       <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
-        <li><a href="/">Log In</a></li>
+        <% if user_signed_in? %>
+          <li><%= link_to "New Pin", new_pin_path %></li>
+          <li><%= link_to "Account", edit_user_registration_path %></li>
+          <li><%= link_to "Sign Out", destroy_user_session_path, :method => :delete %></li>
+        <% else %>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+          <li><%= link_to "Sign In", new_user_session_path %></li>
+        <% end %>
       </ul>
       <ul class="side-nav" id="mobile-nav">
         <li><a href="/">Home</a></li>
-        <li><a href="/">Log In</a></li>
+        <% if user_signed_in? %>
+          <%= link_to "New Pin", new_pin_path %>
+          <%= link_to "Account", edit_user_registration_path %>
+          <%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
+        <% else %>
+          <%= link_to "Sign Up", new_user_registration_path %>
+          <%= link_to "Sign In", new_user_session_path %>
+        <% end %>
       </ul>
     </div>
   </nav>
@@ -28,6 +42,7 @@
     <!-- content_tag :div, msg, class: "" -->
     <div><%= msg %></div>
     <% end %>
+
   <section>
     <%= yield %>
   </section>
